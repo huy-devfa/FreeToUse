@@ -1,3 +1,4 @@
-[Demo](https://streamable.com/gj3cmb) FreeToUse
+FreeToUse
 Source code for FreeToUse tools
-https://discord.gg/tpBRgDHb25
+[Discord](https://discord.gg/tpBRgDHb25)
+[Demo](https://streamable.com/gj3cmb)
