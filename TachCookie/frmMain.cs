@@ -27,5 +27,11 @@ namespace TachCookie
             Form Catchuoi = new frmCatChuoi();
             Catchuoi.Show();
         }
+
+        private void btnGhepChuoi_Click(object sender, EventArgs e)
+        {
+            Form Ghepchuoi = new FrmGhepChuoi();
+            Ghepchuoi.Show();
+        }
     }
 }

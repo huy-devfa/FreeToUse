@@ -5,6 +5,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,7 +40,9 @@ namespace TachCookie
             {
                 if (txtNhapAccount.Lines.Length <= 1)
                 {
+
                     //xu ly lay cookie 1 dong
+
                     if (cbBoxDinhDang.SelectedIndex == 1 && rbtnCookie.Checked == true)
                     {
                         bool Dau2Chamdautien = false;
@@ -107,7 +110,9 @@ namespace TachCookie
                         string sodongchu = sodong.ToString() + " Account";
                         lblKetQua.Text = "kết quả: " + sodongchu;
                     }
+
                     //xu ly lay user:pass
+
                     else if (cbBoxDinhDang.SelectedIndex == 1 && rbtnUserPass.Checked == true)
                     {
                         bool dau2chamdautien = false;
@@ -184,20 +189,23 @@ namespace TachCookie
                         lblKetQua.Text = "kết quả: " + sodongchu;
                     }
                 }
+
                 //xu ly lay cookie nhieu dong
+
                 else if (txtNhapAccount.Lines.Length > 1)
                 {
                     if (cbBoxDinhDang.SelectedIndex == 1 && rbtnCookie.Checked == true)
                     {
                         string ketqua = "";
-                        bool dau2chamdautien2 = false;
+                        
                         for (int j = 0; j < txtNhapAccount.Lines.Length; j++)
                         {
                             string dong = txtNhapAccount.Lines[j];
+                            bool dau2chamdautien2 = false;
 
                             for (int i = 0; i < dong.Length; i++)
                             {
-                                if (txtNhapAccount.Text[i].ToString() == ":")
+                                if (dong[i].ToString() == ":")
                                 {
                                     if (!dau2chamdautien2)
                                     {
@@ -225,9 +233,10 @@ namespace TachCookie
                         bool daugachcheodautien2 = false;
                         for (int i = 0; i < txtNhapAccount.Lines.Length; i++)
                         {
+                            string dong = txtNhapAccount.Lines[i];
                             for (int j = 0; j < txtNhapAccount.Lines[i].Length; j++)
                             {
-                                if (txtNhapAccount.Text[j].ToString() == "/")
+                                if (dong[j].ToString() == "/")
                                 {
                                     if (!daugachcheodautien2)
                                     {
@@ -253,9 +262,10 @@ namespace TachCookie
                         string ketqua = "";
                         for (int i = 0; i < txtNhapAccount.Lines.Length; i++)
                         {
+                            string dong = txtNhapAccount.Lines[i];
                             for (int j = 0; j < txtNhapAccount.Lines[i].Length; j++)
                             {
-                                if (txtNhapAccount.Text[j].ToString() == "|")
+                                if (dong[j].ToString() == "|")
                                 {
                                     if (!daudanhdocdautien2)
                                     {
@@ -275,32 +285,35 @@ namespace TachCookie
                             lblKetQua.Text = "kết quả: " + sodongchu;
                         }
                     }
+
                     //xu ly lay user pass nhieu dong
+
                     else if (cbBoxDinhDang.SelectedIndex == 1 && rbtnUserPass.Checked == true)
                     {
                         bool dau2chamdautien = false;
-                        int sokitu = 0;
                         string ketqua = "";
+
                         for (int i = 0; i < txtNhapAccount.Lines.Length; i++)
                         {
-                            for (int j = 0; j < txtNhapAccount.Lines[i].Length; j++)
+                            bool dau2chamdau = false;
+                            string line = txtNhapAccount.Lines[i];  // Gán dòng thứ i vào biến string
+                                                                   // In ra dòng hiện tại
+                            for(int j=0;j<line.Length;j++)
                             {
-                                if (txtNhapAccount.Text[j].ToString() == ":")
+                                if (line[j].ToString() == ":")
                                 {
-                                    if (!dau2chamdautien)
+                                    if(!dau2chamdau)
                                     {
-                                        dau2chamdautien = true;
+                                        dau2chamdau = true;
                                     }
                                     else
                                     {
-                                        sokitu = j;
+                                        ketqua += line.Substring(0, j) + "\r\n" ;
+                                        
                                         break;
                                     }
                                 }
-                            }
-                            txtNhapAccount.Select(0, sokitu);
-                            ketqua += txtNhapAccount.SelectedText + "\r\n";
-                            dau2chamdautien = false;
+                            }   
                         }
                         txtKetQua.Text = ketqua;
                         int sodong = txtKetQua.Lines.Length - 1;
@@ -309,29 +322,30 @@ namespace TachCookie
                     }
                     else if (cbBoxDinhDang.SelectedIndex == 2 && rbtnUserPass.Checked == true)
                     {
-                        bool daugachcheodautien = false;
-                        int sokitu = 0;
+                        bool dau2chamdautien = false;
                         string ketqua = "";
+
                         for (int i = 0; i < txtNhapAccount.Lines.Length; i++)
                         {
-                            for (int j = 0; j < txtNhapAccount.Lines[i].Length; j++)
+                            bool dau2chamdau = false;
+                            string line = txtNhapAccount.Lines[i];  // Gán dòng thứ i vào biến string
+                                                                    // In ra dòng hiện tại
+                            for (int j = 0; j < line.Length; j++)
                             {
-                                if (txtNhapAccount.Text[j].ToString() == "/")
+                                if (line[j].ToString() == "/")
                                 {
-                                    if (!daugachcheodautien)
+                                    if (!dau2chamdau)
                                     {
-                                        daugachcheodautien = true;
+                                        dau2chamdau = true;
                                     }
                                     else
                                     {
-                                        sokitu = j;
+                                        ketqua += line.Substring(0, j) + "\r\n";
+
                                         break;
                                     }
                                 }
                             }
-                            txtNhapAccount.Select(0, sokitu);
-                            ketqua += txtNhapAccount.SelectedText + "\r\n";
-                            daugachcheodautien = false;
                         }
                         txtKetQua.Text = ketqua;
                         int sodong = txtKetQua.Lines.Length - 1;
@@ -340,29 +354,30 @@ namespace TachCookie
                     }
                     else if (cbBoxDinhDang.SelectedIndex == 3 && rbtnUserPass.Checked == true)
                     {
-                        bool daudanhdocdautien = false;
-                        int sokitu = 0;
+                        bool dau2chamdautien = false;
                         string ketqua = "";
+
                         for (int i = 0; i < txtNhapAccount.Lines.Length; i++)
                         {
-                            for (int j = 0; j < txtNhapAccount.Lines[i].Length; j++)
+                            bool dau2chamdau = false;
+                            string line = txtNhapAccount.Lines[i];  
+                                                                    
+                            for (int j = 0; j < line.Length; j++)
                             {
-                                if (txtNhapAccount.Text[j].ToString() == "|")
+                                if (line[j].ToString() == "|")
                                 {
-                                    if (!daudanhdocdautien)
+                                    if (!dau2chamdau)
                                     {
-                                        daudanhdocdautien = true;
+                                        dau2chamdau = true;
                                     }
                                     else
                                     {
-                                        sokitu = j;
+                                        ketqua += line.Substring(0, j) + "\r\n";
+
                                         break;
                                     }
                                 }
                             }
-                            txtNhapAccount.Select(0, sokitu);
-                            ketqua += txtNhapAccount.SelectedText + "\r\n";
-                            daudanhdocdautien = false;
                         }
                         txtKetQua.Text = ketqua;
                         int sodong = txtKetQua.Lines.Length - 1;

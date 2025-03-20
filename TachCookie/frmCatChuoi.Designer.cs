@@ -178,7 +178,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(815, 543);
             this.Name = "frmCatChuoi";
-            this.Text = "discord.gg/";
+            this.Text = "Cắt chuỗi";
             this.Load += new System.EventHandler(this.frmCatChuoi_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
